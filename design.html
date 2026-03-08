@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prelims Examination Schedule — BSIT 3A</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --orange: #F97316;
+      --orange-light: #FED7AA;
+      --orange-pale: #FFF7ED;
+      --orange-deep: #C2410C;
+      --white: #FFFFFF;
+      --cream: #FFFBF5;
+      --gray-100: #F9FAFB;
+      --gray-200: #F3F4F6;
+      --gray-400: #9CA3AF;
+      --gray-600: #6B7280;
+      --gray-800: #1F2937;
+      --gray-900: #111827;
+      --shadow-sm: 0 1px 3px rgba(249,115,22,0.08), 0 1px 2px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 24px rgba(249,115,22,0.10), 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-lg: 0 20px 60px rgba(249,115,22,0.12), 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--cream);
+      color: var(--gray-900);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ─── FLOATING EMOJIS ─── */
+    .emoji-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .emoji {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0;
+      animation: floatUp linear infinite;
+      user-select: none;
+      filter: blur(0px);
+    }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(110vh) rotate(0deg) scale(0.8); opacity: 0; }
+      5%   { opacity: 0.13; }
+      90%  { opacity: 0.10; }
+      100% { transform: translateY(-15vh) rotate(25deg) scale(1.1); opacity: 0; }
+    }
+
+    /* ─── GRAIN OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.5;
+    }
+
+    /* ─── BACKGROUND ORBS ─── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(80px);
+      opacity: 0.25;
+    }
+    .orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, #FDBA74, transparent); top: -150px; right: -100px; }
+    .orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, #FED7AA, transparent); bottom: 0; left: -120px; }
+    .orb-3 { width: 300px; height: 300px; background: radial-gradient(circle, #F97316, transparent); top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.08; }
+
+    /* ─── MAIN WRAPPER ─── */
+    main {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      text-align: center;
+      margin-bottom: 56px;
+      animation: fadeSlideDown 0.9s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--orange-pale);
+      border: 1.5px solid var(--orange-light);
+      color: var(--orange-deep);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    .header-badge::before { content: '●'; font-size: 0.5rem; color: var(--orange); }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--gray-900);
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--orange);
+    }
+
+    .header-sub {
+      font-size: 0.95rem;
+      color: var(--gray-600);
+      font-weight: 400;
+      margin-top: 12px;
+      letter-spacing: 0.01em;
+    }
+
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--orange), var(--orange-light));
+      border-radius: 4px;
+      margin: 18px auto 0;
+    }
+
+    /* ─── DAY SECTION ─── */
+    .day-section {
+      margin-bottom: 40px;
+      animation: fadeSlideUp 0.8s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    .day-section:nth-child(1) { animation-delay: 0.15s; }
+    .day-section:nth-child(2) { animation-delay: 0.3s; }
+    .day-section:nth-child(3) { animation-delay: 0.45s; }
+
+    .day-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .day-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .day-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--orange);
+      background: var(--orange-pale);
+      border: 1px solid var(--orange-light);
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+
+    .day-date {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--gray-900);
+      letter-spacing: -0.01em;
+    }
+
+    .day-weekday {
+      font-size: 0.82rem;
+      color: var(--gray-400);
+      font-weight: 400;
+      margin-left: auto;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.06em;
+    }
+
+    .day-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--orange-light), transparent);
+      margin-left: 4px;
+    }
+
+    /* ─── EXAM CARD ─── */
+    .exam-card {
+      background: var(--white);
+      border-radius: 20px;
+      border: 1.5px solid #FDE8D4;
+      padding: 24px 28px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0 20px;
+      transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .exam-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--orange), var(--orange-light));
+      border-radius: 4px 0 0 4px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .exam-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+      border-color: var(--orange-light);
+    }
+
+    .exam-card:hover::before { opacity: 1; }
+
+    /* Time block */
+    .time-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 82px;
+      background: var(--orange-pale);
+      border: 1px solid var(--orange-light);
+      border-radius: 12px;
+      padding: 10px 8px;
+      text-align: center;
+    }
+
+    .time-start {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--orange-deep);
+      line-height: 1;
+    }
+
+    .time-sep {
+      font-size: 0.65rem;
+      color: var(--orange-light);
+      margin: 3px 0;
+      letter-spacing: 0.05em;
+    }
+
+    .time-end {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--orange);
+      line-height: 1;
+    }
+
+    /* Card content */
+    .card-content { display: flex; flex-direction: column; gap: 8px; }
+
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+
+    .course-code {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      background: var(--orange-pale);
+      border: 1px solid var(--orange-light);
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+
+    .room-tag {
+      font-size: 0.72rem;
+      color: var(--gray-400);
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.05em;
+      padding: 3px 10px;
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+      border-radius: 100px;
+    }
+
+    .course-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--gray-900);
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+
+    .card-meta {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--gray-600);
+    }
+
+    .meta-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--orange-pale);
+      border: 1px solid var(--orange-light);
+      display: grid;
+      place-items: center;
+      font-size: 0.6rem;
+      flex-shrink: 0;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      margin-top: 64px;
+      animation: fadeSlideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.65s both;
+    }
+
+    .footer-inner {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+    }
+
+    .footer-school {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--gray-600);
+    }
+
+    .footer-dots {
+      display: flex; gap: 6px; margin-top: 6px;
+    }
+    .footer-dots span {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--orange-light);
+    }
+    .footer-dots span:nth-child(2) { background: var(--orange); }
+
+    /* ─── SUMMARY STRIP ─── */
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 48px;
+      animation: fadeSlideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s both;
+    }
+
+    .summary-card {
+      background: var(--white);
+      border: 1.5px solid #FDE8D4;
+      border-radius: 16px;
+      padding: 18px 16px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .summary-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--orange);
+      line-height: 1;
+    }
+
+    .summary-label {
+      font-size: 0.72rem;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 560px) {
+      .exam-card { grid-template-columns: 1fr; gap: 14px; }
+      .time-block { flex-direction: row; gap: 8px; border-radius: 8px; justify-content: flex-start; padding: 8px 14px; }
+      .time-sep { margin: 0; }
+      .summary-strip { grid-template-columns: repeat(3,1fr); }
+      h1 { font-size: 2rem; }
+      .card-meta { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Floating Emojis -->
+  <div class="emoji-layer" id="emojiLayer"></div>
+
+  <main>
+    <!-- Header -->
+    <header>
+      <div class="header-badge">Final Examination Period</div>
+      <h1>Exam <em>Schedule</em></h1>
+      <p class="header-sub">Academic Year 2025–2026 &nbsp;·&nbsp; Second Semester &nbsp;·&nbsp; BSIT 3A</p>
+      <div class="divider"></div>
+    </header>
+
+    <!-- Summary Strip -->
+    <div class="summary-strip">
+      <div class="summary-card">
+        <div class="summary-value">3</div>
+        <div class="summary-label">Exam Days</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-value">6</div>
+        <div class="summary-label">Subjects</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-value">LR 104</div>
+        <div class="summary-label">Main Room</div>
+      </div>
+    </div>
+
+    <!-- DAY 1 -->
+    <section class="day-section">
+      <div class="day-header">
+        <div class="day-pill">
+          <span class="day-number">Day 01</span>
+          <span class="day-date">March 11, 2026</span>
+        </div>
+        <div class="day-line"></div>
+        <span class="day-weekday">Wednesday</span>
+      </div>
+
+      <div class="exam-card">
+        <div class="time-block">
+          <span class="time-start">9:00</span>
+          <span class="time-sep">to</span>
+          <span class="time-end">10:30</span>
+        </div>
+        <div class="card-content">
+          <div class="card-top">
+            <span class="course-code">ITE 125</span>
+            <span class="room-tag">📍 LR 104</span>
+          </div>
+          <div class="course-title">Free Elective 2 — Humans &amp; Intelligent Machines</div>
+          <div class="card-meta">
+            <div class="meta-item">
+              <div class="meta-icon">👤</div>
+              <span>Proctor: Dr. S. Gumarang</span>
+            </div>
+            <div class="meta-item">
+              <div class="meta-icon">📖</div>
+              <span>Instructor: Dr. S. Gumarang</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exam-card">
+        <div class="time-block">
+          <span class="time-start">10:30</span>
+          <span class="time-sep">to</span>
+          <span class="time-end">12:00</span>
+        </div>
+        <div class="card-content">
+          <div class="card-top">
+            <span class="course-code">ITE 122</span>
+            <span class="room-tag">📍 LR 104</span>
+          </div>
+          <div class="course-title">AI Elective 2 — Deep Computer Vision</div>
+          <div class="card-meta">
+            <div class="meta-item">
+              <div class="meta-icon">👤</div>
+              <span>Proctor: Dr. C. Babaran</span>
+            </div>
+            <div class="meta-item">
+              <div class="meta-icon">📖</div>
+              <span>Instructor: Dr. C. Babaran</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DAY 2 -->
+    <section class="day-section">
+      <div class="day-header">
+        <div class="day-pill">
+          <span class="day-number">Day 02</span>
+          <span class="day-date">March 12, 2026</span>
+        </div>
+        <div class="day-line"></div>
+        <span class="day-weekday">Thursday</span>
+      </div>
+
+      <div class="exam-card">
+        <div class="time-block">
+          <span class="time-start">9:00</span>
+          <span class="time-sep">to</span>
+          <span class="time-end">10:30</span>
+        </div>
+        <div class="card-content">
+          <div class="card-top">
+            <span class="course-code">ITE 126</span>
+            <span class="room-tag">📍 LR 104</span>
+          </div>
+          <div class="course-title">Artificial Intelligence and Robotics</div>
+          <div class="card-meta">
+            <div class="meta-item">
+              <div class="meta-icon">👤</div>
+              <span>Proctor: Engr. L. Cagurangan</span>
+            </div>
+            <div class="meta-item">
+              <div class="meta-icon">📖</div>
+              <span>Instructor: Engr. L. Cagurangan</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exam-card">
+        <div class="time-block">
+          <span class="time-start">10:30</span>
+          <span class="time-sep">to</span>
+          <span class="time-end">12:00</span>
+        </div>
+        <div class="card-content">
+          <div class="card-top">
+            <span class="course-code">ITE 124</span>
+            <span class="room-tag">📍 LR 104</span>
+          </div>
+          <div class="course-title">AI Elective 3 — Pattern Recognition</div>
+          <div class="card-meta">
+            <div class="meta-item">
+              <div class="meta-icon">👤</div>
+              <span>Proctor: Ms. R. Antonio</span>
+            </div>
+            <div class="meta-item">
+              <div class="meta-icon">📖</div>
+              <span>Instructor: Ms. R. Antonio</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DAY 3 -->
+    <section class="day-section">
+      <div class="day-header">
+        <div class="day-pill">
+          <span class="day-number">Day 03</span>
+          <span class="day-date">March 13, 2026</span>
+        </div>
+        <div class="day-line"></div>
+        <span class="day-weekday">Friday</span>
+      </div>
+
+      <div class="exam-card">
+        <div class="time-block">
+          <span class="time-start">7:30</span>
+          <span class="time-sep">to</span>
+          <span class="time-end">9:00</span>
+        </div>
+        <div class="card-content">
+          <div class="card-top">
+            <span class="course-code">INT REL 107</span>
+            <span class="room-tag">📍 FLC 301</span>
+          </div>
+          <div class="course-title">Christian Vocation — Sacrament of Marriage</div>
+          <div class="card-meta">
+            <div class="meta-item">
+              <div class="meta-icon">👤</div>
+              <span>Proctor: Mrs. G. Cuntapay</span>
+            </div>
+            <div class="meta-item">
+              <div class="meta-icon">📖</div>
+              <span>Instructor: Mrs. G. Cuntapay</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exam-card">
+        <div class="time-block">
+          <span class="time-start">9:00</span>
+          <span class="time-sep">to</span>
+          <span class="time-end">10:30</span>
+        </div>
+        <div class="card-content">
+          <div class="card-top">
+            <span class="course-code">ITE 121</span>
+            <span class="room-tag">📍 LR 104</span>
+          </div>
+          <div class="course-title">Computer Network Systems</div>
+          <div class="card-meta">
+            <div class="meta-item">
+              <div class="meta-icon">👤</div>
+              <span>Proctor: Mrs. R. Antonio</span>
+            </div>
+            <div class="meta-item">
+              <div class="meta-icon">📖</div>
+              <span>Instructor: Mrs. R. Antonio</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-inner">
+        <span class="footer-label">Issued by the Office of the Registrar</span>
+        <span class="footer-school">University — College of Computing Studies</span>
+        <div class="footer-dots">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // ─── FLOATING EMOJIS GENERATOR ───
+    const emojis = ['📚','✏️','📝','🎓','📖','🔬','💡','🖊️','📐','🧠','📓','📌','🏫','🖥️','⌨️','🤖','🔭','📡','💻','🧮','📊','📋'];
+    const layer = document.getElementById('emojiLayer');
+    const COUNT = 28;
+
+    function spawnEmoji() {
+      const el = document.createElement('div');
+      el.className = 'emoji';
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+      const x = Math.random() * 100;
+      const duration = 14 + Math.random() * 18;
+      const delay = Math.random() * 20;
+      const size = 1.2 + Math.random() * 1.6;
+
+      el.style.left = x + 'vw';
+      el.style.fontSize = size + 'rem';
+      el.style.animationDuration = duration + 's';
+      el.style.animationDelay = delay + 's';
+
+      layer.appendChild(el);
+
+      // Recycle
+      setTimeout(() => {
+        el.remove();
+        spawnEmoji();
+      }, (duration + delay) * 1000);
+    }
+
+    for (let i = 0; i < COUNT; i++) spawnEmoji();
+
+    // ─── SCROLL-TRIGGERED CARD REVEAL ───
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.exam-card').forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = `opacity 0.55s ease ${i * 0.08}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${i * 0.08}s, box-shadow 0.3s ease, border-color 0.3s ease`;
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>
