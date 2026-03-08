@@ -50,7 +50,6 @@
       opacity: 0;
       animation: floatUp linear infinite;
       user-select: none;
-      filter: blur(0px);
     }
 
     @keyframes floatUp {
@@ -88,7 +87,7 @@
     main {
       position: relative;
       z-index: 2;
-      max-width: 820px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 56px 24px 80px;
     }
@@ -96,7 +95,7 @@
     /* ─── HEADER ─── */
     header {
       text-align: center;
-      margin-bottom: 56px;
+      margin-bottom: 40px;
       animation: fadeSlideDown 0.9s cubic-bezier(0.16,1,0.3,1) both;
     }
 
@@ -149,6 +148,102 @@
       border-radius: 4px;
       margin: 18px auto 0;
     }
+
+    /* ─── VIEW TOGGLE ─── */
+    .view-toggle {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 36px;
+      animation: fadeSlideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.05s both;
+    }
+
+    .toggle-group {
+      display: inline-flex;
+      background: var(--white);
+      border: 1.5px solid #FDE8D4;
+      border-radius: 14px;
+      padding: 5px;
+      gap: 4px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 22px;
+      border-radius: 10px;
+      border: none;
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
+      letter-spacing: 0.01em;
+    }
+
+    .toggle-btn svg {
+      width: 15px;
+      height: 15px;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .toggle-btn:hover {
+      color: var(--orange);
+      background: var(--orange-pale);
+    }
+
+    .toggle-btn.active {
+      background: linear-gradient(135deg, var(--orange), #FB923C);
+      color: var(--white);
+      box-shadow: 0 4px 14px rgba(249,115,22,0.35);
+    }
+
+    .toggle-btn.active svg { opacity: 1; }
+
+    /* ─── SUMMARY STRIP ─── */
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 48px;
+      animation: fadeSlideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s both;
+    }
+
+    .summary-card {
+      background: var(--white);
+      border: 1.5px solid #FDE8D4;
+      border-radius: 16px;
+      padding: 18px 16px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .summary-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--orange);
+      line-height: 1;
+    }
+
+    .summary-label {
+      font-size: 0.72rem;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* ════════════════════════════════
+       LIST VIEW
+    ════════════════════════════════ */
+    #list-view { display: block; }
+    #calendar-view { display: none; }
 
     /* ─── DAY SECTION ─── */
     .day-section {
@@ -283,7 +378,6 @@
 
     /* Card content */
     .card-content { display: flex; flex-direction: column; gap: 8px; }
-
     .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
 
     .course-code {
@@ -345,6 +439,210 @@
       flex-shrink: 0;
     }
 
+    /* ════════════════════════════════
+       CALENDAR VIEW
+    ════════════════════════════════ */
+    .cal-wrapper {
+      animation: fadeSlideUp 0.6s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    /* Time axis + columns grid */
+    .cal-grid {
+      display: grid;
+      grid-template-columns: 58px repeat(3, 1fr);
+      gap: 0 12px;
+    }
+
+    /* Day column headers */
+    .cal-header-row {
+      display: contents;
+    }
+
+    .cal-axis-top {
+      /* empty corner */
+    }
+
+    .cal-day-col-header {
+      background: var(--white);
+      border: 1.5px solid #FDE8D4;
+      border-radius: 16px 16px 0 0;
+      padding: 16px 12px 12px;
+      text-align: center;
+      margin-bottom: 0;
+      position: relative;
+    }
+
+    .cal-day-col-header.today-col {
+      background: linear-gradient(160deg, var(--orange-pale), #fff8f0);
+      border-color: var(--orange-light);
+    }
+
+    .cal-col-weekday {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      display: block;
+    }
+
+    .cal-col-date {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      display: block;
+      line-height: 1.1;
+      margin-top: 2px;
+    }
+
+    .cal-col-date.is-orange {
+      color: var(--orange);
+    }
+
+    .cal-col-month {
+      font-size: 0.72rem;
+      color: var(--gray-400);
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.06em;
+      display: block;
+      margin-top: 1px;
+    }
+
+    /* Body rows */
+    .cal-body {
+      display: contents;
+    }
+
+    .cal-time-label {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding-top: 10px;
+      padding-right: 10px;
+    }
+
+    .cal-time-label span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--gray-400);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .cal-cell {
+      background: var(--white);
+      border-left: 1.5px solid #FDE8D4;
+      border-right: 1.5px solid #FDE8D4;
+      min-height: 56px;
+      position: relative;
+    }
+
+    .cal-cell.col-end {
+      border-bottom: 1.5px solid #FDE8D4;
+      border-radius: 0 0 16px 16px;
+      min-height: 24px;
+    }
+
+    .cal-cell.today-col {
+      background: #fffbf8;
+    }
+
+    /* Hour separator line inside cell */
+    .cal-cell::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: #FDE8D4;
+      opacity: 0.6;
+    }
+
+    /* Exam block inside calendar cell */
+    .cal-exam-block {
+      position: absolute;
+      left: 6px;
+      right: 6px;
+      border-radius: 10px;
+      padding: 8px 10px;
+      cursor: default;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .cal-exam-block:hover {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 8px 24px rgba(249,115,22,0.22);
+      z-index: 10;
+    }
+
+    .cal-exam-block.style-a {
+      background: linear-gradient(135deg, #FFF7ED, #FFEEDD);
+      border: 1.5px solid var(--orange-light);
+    }
+
+    .cal-exam-block.style-b {
+      background: linear-gradient(135deg, #FEF3C7, #FDE68A22);
+      border: 1.5px solid #FCD34D;
+    }
+
+    .cal-exam-block.style-c {
+      background: linear-gradient(135deg, #ECFDF5, #D1FAE5);
+      border: 1.5px solid #6EE7B7;
+    }
+
+    .cal-exam-block.style-d {
+      background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+      border: 1.5px solid #93C5FD;
+    }
+
+    .cal-exam-block.style-e {
+      background: linear-gradient(135deg, #FDF4FF, #F3E8FF);
+      border: 1.5px solid #D8B4FE;
+    }
+
+    .cal-exam-block.style-f {
+      background: linear-gradient(135deg, #FFF1F2, #FFE4E6);
+      border: 1.5px solid #FCA5A5;
+    }
+
+    .cal-block-code {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange-deep);
+      opacity: 0.85;
+    }
+
+    .cal-block-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--gray-900);
+      line-height: 1.3;
+      margin-top: 3px;
+    }
+
+    .cal-block-meta {
+      font-size: 0.68rem;
+      color: var(--gray-600);
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .cal-block-meta .dot {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--gray-400);
+      display: inline-block;
+    }
+
     /* ─── FOOTER ─── */
     footer {
       text-align: center;
@@ -383,41 +681,6 @@
     }
     .footer-dots span:nth-child(2) { background: var(--orange); }
 
-    /* ─── SUMMARY STRIP ─── */
-    .summary-strip {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-bottom: 48px;
-      animation: fadeSlideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s both;
-    }
-
-    .summary-card {
-      background: var(--white);
-      border: 1.5px solid #FDE8D4;
-      border-radius: 16px;
-      padding: 18px 16px;
-      text-align: center;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .summary-value {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--orange);
-      line-height: 1;
-    }
-
-    .summary-label {
-      font-size: 0.72rem;
-      color: var(--gray-400);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-top: 4px;
-      font-family: 'DM Mono', monospace;
-    }
-
     /* ─── ANIMATIONS ─── */
     @keyframes fadeSlideDown {
       from { opacity: 0; transform: translateY(-28px); }
@@ -429,13 +692,17 @@
     }
 
     /* ─── RESPONSIVE ─── */
-    @media (max-width: 560px) {
+    @media (max-width: 600px) {
       .exam-card { grid-template-columns: 1fr; gap: 14px; }
       .time-block { flex-direction: row; gap: 8px; border-radius: 8px; justify-content: flex-start; padding: 8px 14px; }
       .time-sep { margin: 0; }
       .summary-strip { grid-template-columns: repeat(3,1fr); }
       h1 { font-size: 2rem; }
       .card-meta { flex-direction: column; gap: 8px; }
+      .cal-grid { grid-template-columns: 42px repeat(3,1fr); gap: 0 6px; }
+      .cal-block-meta { display: none; }
+      .cal-block-title { font-size: 0.7rem; }
+      .toggle-btn { padding: 8px 14px; font-size: 0.8rem; }
     }
   </style>
 </head>
@@ -458,6 +725,25 @@
       <div class="divider"></div>
     </header>
 
+    <!-- View Toggle -->
+    <div class="view-toggle">
+      <div class="toggle-group">
+        <button class="toggle-btn active" id="btn-list" onclick="switchView('list')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+            <circle cx="3" cy="6" r="1.2" fill="currentColor" stroke="none"/><circle cx="3" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="3" cy="18" r="1.2" fill="currentColor" stroke="none"/>
+          </svg>
+          List View
+        </button>
+        <button class="toggle-btn" id="btn-calendar" onclick="switchView('calendar')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          Calendar View
+        </button>
+      </div>
+    </div>
+
     <!-- Summary Strip -->
     <div class="summary-strip">
       <div class="summary-card">
@@ -474,191 +760,206 @@
       </div>
     </div>
 
-    <!-- DAY 1 -->
-    <section class="day-section">
-      <div class="day-header">
-        <div class="day-pill">
-          <span class="day-number">Day 01</span>
-          <span class="day-date">March 11, 2026</span>
-        </div>
-        <div class="day-line"></div>
-        <span class="day-weekday">Wednesday</span>
-      </div>
+    <!-- ══════════ LIST VIEW ══════════ -->
+    <div id="list-view">
 
-      <div class="exam-card">
-        <div class="time-block">
-          <span class="time-start">9:00</span>
-          <span class="time-sep">to</span>
-          <span class="time-end">10:30</span>
-        </div>
-        <div class="card-content">
-          <div class="card-top">
-            <span class="course-code">ITE 125</span>
-            <span class="room-tag">📍 LR 104</span>
+      <!-- DAY 1 -->
+      <section class="day-section">
+        <div class="day-header">
+          <div class="day-pill">
+            <span class="day-number">Day 01</span>
+            <span class="day-date">March 11, 2026</span>
           </div>
-          <div class="course-title">Free Elective 2 — Humans &amp; Intelligent Machines</div>
-          <div class="card-meta">
-            <div class="meta-item">
-              <div class="meta-icon">👤</div>
-              <span>Proctor: Dr. S. Gumarang</span>
-            </div>
-            <div class="meta-item">
-              <div class="meta-icon">📖</div>
-              <span>Instructor: Dr. S. Gumarang</span>
-            </div>
-          </div>
+          <div class="day-line"></div>
+          <span class="day-weekday">Wednesday</span>
         </div>
-      </div>
 
-      <div class="exam-card">
-        <div class="time-block">
-          <span class="time-start">10:30</span>
-          <span class="time-sep">to</span>
-          <span class="time-end">12:00</span>
-        </div>
-        <div class="card-content">
-          <div class="card-top">
-            <span class="course-code">ITE 122</span>
-            <span class="room-tag">📍 LR 104</span>
+        <div class="exam-card">
+          <div class="time-block">
+            <span class="time-start">9:00</span>
+            <span class="time-sep">to</span>
+            <span class="time-end">10:30</span>
           </div>
-          <div class="course-title">AI Elective 2 — Deep Computer Vision</div>
-          <div class="card-meta">
-            <div class="meta-item">
-              <div class="meta-icon">👤</div>
-              <span>Proctor: Dr. C. Babaran</span>
+          <div class="card-content">
+            <div class="card-top">
+              <span class="course-code">ITE 125</span>
+              <span class="room-tag">📍 LR 104</span>
             </div>
-            <div class="meta-item">
-              <div class="meta-icon">📖</div>
-              <span>Instructor: Dr. C. Babaran</span>
+            <div class="course-title">Free Elective 2 — Humans &amp; Intelligent Machines</div>
+            <div class="card-meta">
+              <div class="meta-item">
+                <div class="meta-icon">👤</div>
+                <span>Proctor: Dr. S. Gumarang</span>
+              </div>
+              <div class="meta-item">
+                <div class="meta-icon">📖</div>
+                <span>Instructor: Dr. S. Gumarang</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- DAY 2 -->
-    <section class="day-section">
-      <div class="day-header">
-        <div class="day-pill">
-          <span class="day-number">Day 02</span>
-          <span class="day-date">March 12, 2026</span>
+        <div class="exam-card">
+          <div class="time-block">
+            <span class="time-start">10:30</span>
+            <span class="time-sep">to</span>
+            <span class="time-end">12:00</span>
+          </div>
+          <div class="card-content">
+            <div class="card-top">
+              <span class="course-code">ITE 122</span>
+              <span class="room-tag">📍 LR 104</span>
+            </div>
+            <div class="course-title">AI Elective 2 — Deep Computer Vision</div>
+            <div class="card-meta">
+              <div class="meta-item">
+                <div class="meta-icon">👤</div>
+                <span>Proctor: Dr. C. Babaran</span>
+              </div>
+              <div class="meta-item">
+                <div class="meta-icon">📖</div>
+                <span>Instructor: Dr. C. Babaran</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="day-line"></div>
-        <span class="day-weekday">Thursday</span>
-      </div>
+      </section>
 
-      <div class="exam-card">
-        <div class="time-block">
-          <span class="time-start">9:00</span>
-          <span class="time-sep">to</span>
-          <span class="time-end">10:30</span>
-        </div>
-        <div class="card-content">
-          <div class="card-top">
-            <span class="course-code">ITE 126</span>
-            <span class="room-tag">📍 LR 104</span>
+      <!-- DAY 2 -->
+      <section class="day-section">
+        <div class="day-header">
+          <div class="day-pill">
+            <span class="day-number">Day 02</span>
+            <span class="day-date">March 12, 2026</span>
           </div>
-          <div class="course-title">Artificial Intelligence and Robotics</div>
-          <div class="card-meta">
-            <div class="meta-item">
-              <div class="meta-icon">👤</div>
-              <span>Proctor: Engr. L. Cagurangan</span>
-            </div>
-            <div class="meta-item">
-              <div class="meta-icon">📖</div>
-              <span>Instructor: Engr. L. Cagurangan</span>
-            </div>
-          </div>
+          <div class="day-line"></div>
+          <span class="day-weekday">Thursday</span>
         </div>
-      </div>
 
-      <div class="exam-card">
-        <div class="time-block">
-          <span class="time-start">10:30</span>
-          <span class="time-sep">to</span>
-          <span class="time-end">12:00</span>
-        </div>
-        <div class="card-content">
-          <div class="card-top">
-            <span class="course-code">ITE 124</span>
-            <span class="room-tag">📍 LR 104</span>
+        <div class="exam-card">
+          <div class="time-block">
+            <span class="time-start">9:00</span>
+            <span class="time-sep">to</span>
+            <span class="time-end">10:30</span>
           </div>
-          <div class="course-title">AI Elective 3 — Pattern Recognition</div>
-          <div class="card-meta">
-            <div class="meta-item">
-              <div class="meta-icon">👤</div>
-              <span>Proctor: Ms. R. Antonio</span>
+          <div class="card-content">
+            <div class="card-top">
+              <span class="course-code">ITE 126</span>
+              <span class="room-tag">📍 LR 104</span>
             </div>
-            <div class="meta-item">
-              <div class="meta-icon">📖</div>
-              <span>Instructor: Ms. R. Antonio</span>
+            <div class="course-title">Artificial Intelligence and Robotics</div>
+            <div class="card-meta">
+              <div class="meta-item">
+                <div class="meta-icon">👤</div>
+                <span>Proctor: Engr. L. Cagurangan</span>
+              </div>
+              <div class="meta-item">
+                <div class="meta-icon">📖</div>
+                <span>Instructor: Engr. L. Cagurangan</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- DAY 3 -->
-    <section class="day-section">
-      <div class="day-header">
-        <div class="day-pill">
-          <span class="day-number">Day 03</span>
-          <span class="day-date">March 13, 2026</span>
+        <div class="exam-card">
+          <div class="time-block">
+            <span class="time-start">10:30</span>
+            <span class="time-sep">to</span>
+            <span class="time-end">12:00</span>
+          </div>
+          <div class="card-content">
+            <div class="card-top">
+              <span class="course-code">ITE 124</span>
+              <span class="room-tag">📍 LR 104</span>
+            </div>
+            <div class="course-title">AI Elective 3 — Pattern Recognition</div>
+            <div class="card-meta">
+              <div class="meta-item">
+                <div class="meta-icon">👤</div>
+                <span>Proctor: Ms. R. Antonio</span>
+              </div>
+              <div class="meta-item">
+                <div class="meta-icon">📖</div>
+                <span>Instructor: Ms. R. Antonio</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="day-line"></div>
-        <span class="day-weekday">Friday</span>
-      </div>
+      </section>
 
-      <div class="exam-card">
-        <div class="time-block">
-          <span class="time-start">7:30</span>
-          <span class="time-sep">to</span>
-          <span class="time-end">9:00</span>
-        </div>
-        <div class="card-content">
-          <div class="card-top">
-            <span class="course-code">INT REL 107</span>
-            <span class="room-tag">📍 FLC 301</span>
+      <!-- DAY 3 -->
+      <section class="day-section">
+        <div class="day-header">
+          <div class="day-pill">
+            <span class="day-number">Day 03</span>
+            <span class="day-date">March 13, 2026</span>
           </div>
-          <div class="course-title">Christian Vocation — Sacrament of Marriage</div>
-          <div class="card-meta">
-            <div class="meta-item">
-              <div class="meta-icon">👤</div>
-              <span>Proctor: Mrs. G. Cuntapay</span>
-            </div>
-            <div class="meta-item">
-              <div class="meta-icon">📖</div>
-              <span>Instructor: Mrs. G. Cuntapay</span>
-            </div>
-          </div>
+          <div class="day-line"></div>
+          <span class="day-weekday">Friday</span>
         </div>
-      </div>
 
-      <div class="exam-card">
-        <div class="time-block">
-          <span class="time-start">9:00</span>
-          <span class="time-sep">to</span>
-          <span class="time-end">10:30</span>
+        <div class="exam-card">
+          <div class="time-block">
+            <span class="time-start">7:30</span>
+            <span class="time-sep">to</span>
+            <span class="time-end">9:00</span>
+          </div>
+          <div class="card-content">
+            <div class="card-top">
+              <span class="course-code">INT REL 107</span>
+              <span class="room-tag">📍 FLC 301</span>
+            </div>
+            <div class="course-title">Christian Vocation — Sacrament of Marriage</div>
+            <div class="card-meta">
+              <div class="meta-item">
+                <div class="meta-icon">👤</div>
+                <span>Proctor: Mrs. G. Cuntapay</span>
+              </div>
+              <div class="meta-item">
+                <div class="meta-icon">📖</div>
+                <span>Instructor: Mrs. G. Cuntapay</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="card-content">
-          <div class="card-top">
-            <span class="course-code">ITE 121</span>
-            <span class="room-tag">📍 LR 104</span>
+
+        <div class="exam-card">
+          <div class="time-block">
+            <span class="time-start">9:00</span>
+            <span class="time-sep">to</span>
+            <span class="time-end">10:30</span>
           </div>
-          <div class="course-title">Computer Network Systems</div>
-          <div class="card-meta">
-            <div class="meta-item">
-              <div class="meta-icon">👤</div>
-              <span>Proctor: Mrs. R. Antonio</span>
+          <div class="card-content">
+            <div class="card-top">
+              <span class="course-code">ITE 121</span>
+              <span class="room-tag">📍 LR 104</span>
             </div>
-            <div class="meta-item">
-              <div class="meta-icon">📖</div>
-              <span>Instructor: Mrs. R. Antonio</span>
+            <div class="course-title">Computer Network Systems</div>
+            <div class="card-meta">
+              <div class="meta-item">
+                <div class="meta-icon">👤</div>
+                <span>Proctor: Mrs. R. Antonio</span>
+              </div>
+              <div class="meta-item">
+                <div class="meta-icon">📖</div>
+                <span>Instructor: Mrs. R. Antonio</span>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
+
+    </div><!-- end #list-view -->
+
+
+    <!-- ══════════ CALENDAR VIEW ══════════ -->
+    <div id="calendar-view">
+      <div class="cal-wrapper">
+        <div class="cal-grid" id="calGrid">
+          <!-- Built by JS -->
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -672,38 +973,166 @@
   </main>
 
   <script>
-    // ─── FLOATING EMOJIS GENERATOR ───
+    /* ─── VIEW SWITCHER ─── */
+    function switchView(view) {
+      const listView = document.getElementById('list-view');
+      const calView  = document.getElementById('calendar-view');
+      const btnList  = document.getElementById('btn-list');
+      const btnCal   = document.getElementById('btn-calendar');
+
+      if (view === 'list') {
+        listView.style.display = 'block';
+        calView.style.display  = 'none';
+        btnList.classList.add('active');
+        btnCal.classList.remove('active');
+      } else {
+        listView.style.display = 'none';
+        calView.style.display  = 'block';
+        btnList.classList.remove('active');
+        btnCal.classList.add('active');
+        buildCalendar();
+      }
+    }
+
+    /* ─── CALENDAR DATA ─── */
+    // Time slots: 7:30 → 12:30 in 30-min increments = 10 rows
+    const SLOT_HEIGHT = 60; // px per 30-min slot
+    const SLOT_COUNT  = 10;
+    const START_HOUR  = 7.5; // 7:30
+
+    const exams = [
+      // Day 0 = Wed Mar 11
+      { day: 0, startH: 9,    endH: 10.5, code: 'ITE 125', title: 'Humans & Intelligent Machines', room: 'LR 104', instructor: 'Dr. S. Gumarang', style: 'style-a' },
+      { day: 0, startH: 10.5, endH: 12,   code: 'ITE 122', title: 'Deep Computer Vision',          room: 'LR 104', instructor: 'Dr. C. Babaran',  style: 'style-b' },
+      // Day 1 = Thu Mar 12
+      { day: 1, startH: 9,    endH: 10.5, code: 'ITE 126', title: 'AI and Robotics',               room: 'LR 104', instructor: 'Engr. L. Cagurangan', style: 'style-c' },
+      { day: 1, startH: 10.5, endH: 12,   code: 'ITE 124', title: 'Pattern Recognition',           room: 'LR 104', instructor: 'Ms. R. Antonio',   style: 'style-d' },
+      // Day 2 = Fri Mar 13
+      { day: 2, startH: 7.5,  endH: 9,    code: 'INT REL 107', title: 'Sacrament of Marriage',     room: 'FLC 301', instructor: 'Mrs. G. Cuntapay', style: 'style-e' },
+      { day: 2, startH: 9,    endH: 10.5, code: 'ITE 121', title: 'Computer Network Systems',      room: 'LR 104', instructor: 'Mrs. R. Antonio',  style: 'style-f' },
+    ];
+
+    const days = [
+      { label: 'Wed', date: '11', month: 'Mar' },
+      { label: 'Thu', date: '12', month: 'Mar' },
+      { label: 'Fri', date: '13', month: 'Mar' },
+    ];
+
+    let calBuilt = false;
+
+    function hoursToSlot(h) {
+      return (h - START_HOUR) / 0.5; // each slot = 30 min
+    }
+
+    function formatTime(h) {
+      const hrs  = Math.floor(h);
+      const mins = (h % 1 === 0.5) ? '30' : '00';
+      const ampm = hrs < 12 ? 'AM' : 'PM';
+      const disp = hrs > 12 ? hrs - 12 : hrs;
+      return `${disp}:${mins} ${ampm}`;
+    }
+
+    function buildCalendar() {
+      if (calBuilt) return;
+      calBuilt = true;
+
+      const grid = document.getElementById('calGrid');
+      grid.innerHTML = '';
+
+      /* ── Column headers ── */
+      // empty top-left corner
+      const corner = document.createElement('div');
+      corner.className = 'cal-axis-top';
+      grid.appendChild(corner);
+
+      days.forEach((d, i) => {
+        const hdr = document.createElement('div');
+        hdr.className = 'cal-day-col-header' + (i === 0 ? ' today-col' : '');
+        hdr.innerHTML = `
+          <span class="cal-col-weekday">${d.label}</span>
+          <span class="cal-col-date${i === 0 ? ' is-orange' : ''}">${d.date}</span>
+          <span class="cal-col-month">${d.month} 2026</span>
+        `;
+        grid.appendChild(hdr);
+      });
+
+      /* ── Time rows ── */
+      for (let s = 0; s < SLOT_COUNT; s++) {
+        const timeH = START_HOUR + s * 0.5;
+
+        // Time label (only on the hour)
+        const label = document.createElement('div');
+        label.className = 'cal-time-label';
+        if (timeH % 1 === 0) {
+          label.innerHTML = `<span>${formatTime(timeH)}</span>`;
+        }
+        grid.appendChild(label);
+
+        // Cells for each day column
+        for (let d = 0; d < 3; d++) {
+          const cell = document.createElement('div');
+          cell.className = 'cal-cell' + (d === 0 ? ' today-col' : '') + (s === SLOT_COUNT - 1 ? ' col-end' : '');
+          cell.style.height = SLOT_HEIGHT + 'px';
+
+          // Place exam blocks that START in this slot
+          exams
+            .filter(e => e.day === d && hoursToSlot(e.startH) === s)
+            .forEach(e => {
+              const durationSlots = (e.endH - e.startH) / 0.5;
+              const block = document.createElement('div');
+              block.className = `cal-exam-block ${e.style}`;
+              block.style.top    = '4px';
+              block.style.height = (SLOT_HEIGHT * durationSlots - 8) + 'px';
+              block.innerHTML = `
+                <div class="cal-block-code">${e.code}</div>
+                <div class="cal-block-title">${e.title}</div>
+                <div class="cal-block-meta">
+                  <span>📍 ${e.room}</span>
+                  <span class="dot"></span>
+                  <span>${e.instructor}</span>
+                </div>
+              `;
+              cell.appendChild(block);
+            });
+
+          grid.appendChild(cell);
+        }
+      }
+
+      // Bottom cap row for rounded corners
+      const capCorner = document.createElement('div');
+      grid.appendChild(capCorner);
+      for (let d = 0; d < 3; d++) {
+        const cap = document.createElement('div');
+        cap.className = 'cal-cell col-end' + (d === 0 ? ' today-col' : '');
+        cap.style.minHeight = '12px';
+        grid.appendChild(cap);
+      }
+    }
+
+    /* ─── FLOATING EMOJIS GENERATOR ─── */
     const emojis = ['📚','✏️','📝','🎓','📖','🔬','💡','🖊️','📐','🧠','📓','📌','🏫','🖥️','⌨️','🤖','🔭','📡','💻','🧮','📊','📋'];
     const layer = document.getElementById('emojiLayer');
-    const COUNT = 28;
 
     function spawnEmoji() {
       const el = document.createElement('div');
       el.className = 'emoji';
       el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-
-      const x = Math.random() * 100;
+      const x        = Math.random() * 100;
       const duration = 14 + Math.random() * 18;
-      const delay = Math.random() * 20;
-      const size = 1.2 + Math.random() * 1.6;
-
-      el.style.left = x + 'vw';
-      el.style.fontSize = size + 'rem';
+      const delay    = Math.random() * 20;
+      const size     = 1.2 + Math.random() * 1.6;
+      el.style.left             = x + 'vw';
+      el.style.fontSize         = size + 'rem';
       el.style.animationDuration = duration + 's';
-      el.style.animationDelay = delay + 's';
-
+      el.style.animationDelay   = delay + 's';
       layer.appendChild(el);
-
-      // Recycle
-      setTimeout(() => {
-        el.remove();
-        spawnEmoji();
-      }, (duration + delay) * 1000);
+      setTimeout(() => { el.remove(); spawnEmoji(); }, (duration + delay) * 1000);
     }
 
-    for (let i = 0; i < COUNT; i++) spawnEmoji();
+    for (let i = 0; i < 28; i++) spawnEmoji();
 
-    // ─── SCROLL-TRIGGERED CARD REVEAL ───
+    /* ─── SCROLL-TRIGGERED CARD REVEAL ─── */
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -714,7 +1143,7 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.exam-card').forEach((card, i) => {
-      card.style.opacity = '0';
+      card.style.opacity   = '0';
       card.style.transform = 'translateY(20px)';
       card.style.transition = `opacity 0.55s ease ${i * 0.08}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${i * 0.08}s, box-shadow 0.3s ease, border-color 0.3s ease`;
       observer.observe(card);
